@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { volunteers } from "../store/data";
+import { volunteerSchema } from "../validators/volunteerValidator";
 
 const router = Router();
 
@@ -23,7 +24,20 @@ router.get("/", (req, res) => {
   });
 });
 
+
+router.get("/search", (req, res) => {
+  const query = String(req.query.q || "").toLowerCase();
+
+  const filtered = volunteers.filter((volunteer) =>
+    volunteer.fullName
+      .toLowerCase()
+      .includes(query)
+  );
+
+  res.json(filtered);
+});
 export default router;
+
 
 router.get("/:id", (req, res) => {
   const volunteer = volunteers.find(
@@ -41,30 +55,22 @@ router.get("/:id", (req, res) => {
 
 
 router.post("/", (req, res) => {
-  const {
-    fullName,
-    email,
-    age,
-    projectId,
-  } = req.body;
+  const validation = volunteerSchema.safeParse(req.body);
 
-  if (!fullName || !email || !age || !projectId) {
-    return res.status(400).json({
-      error: "Необходимо заполнить все обязательные поля.",
+  if (!validation.success) {
+    return res.status(422).json({
+      error: validation.error.issues,
     });
   }
 
-  const newVolunteer = {
+  const newProject = {
     id: crypto.randomUUID(),
-    fullName,
-    email,
-    age,
-    projectId,
+    ...validation.data,
   };
 
-  volunteers.push(newVolunteer);
+  volunteers.push(newProject);
 
-  res.status(201).json(newVolunteer);
+  res.status(201).json(newProject);
 });
 
 

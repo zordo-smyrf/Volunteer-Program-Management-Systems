@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { projects } from "../store/data";
+import { projectSchema } from "../validators/projectValidator";
 
 const router = Router();
 
@@ -42,21 +43,17 @@ export default router;
 
 
 router.post("/", (req, res) => {
-  const { title, description, location, isActive, startDate } = req.body;
+  const validation = projectSchema.safeParse(req.body);
 
-  if (!title || !description || !location || !startDate) {
-    return res.status(400).json({
-      error: "Необходимо заполнить все обязательные поля",
+  if (!validation.success) {
+    return res.status(422).json({
+      error: validation.error.issues,
     });
   }
 
   const newProject = {
     id: crypto.randomUUID(),
-    title,
-    description,
-    location,
-    isActive,
-    startDate,
+    ...validation.data,
   };
 
   projects.push(newProject);
