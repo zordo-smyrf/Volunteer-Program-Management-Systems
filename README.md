@@ -1,2 +1,1 @@
-# Volunteer-Program-Management-System
-Практическая работа
+# Volunteer-Program-Management-Systems
