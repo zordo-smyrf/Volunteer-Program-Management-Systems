@@ -7,6 +7,7 @@ router.get("/", (req, res) => {
   res.json(projects);
 });
 
+
 router.get("/:id", (req, res) => {
   const project = projects.find(
     (p) => p.id === req.params.id
@@ -22,6 +23,7 @@ router.get("/:id", (req, res) => {
 });
 
 export default router;
+
 
 router.post("/", (req, res) => {
   const { title, description, location, isActive, startDate } = req.body;
@@ -46,6 +48,7 @@ router.post("/", (req, res) => {
   res.status(201).json(newProject);
 });
 
+
 router.patch("/:id", (req, res) => {
   const project = projects.find(
     (p) => p.id === req.params.id
@@ -60,4 +63,21 @@ router.patch("/:id", (req, res) => {
   Object.assign(project, req.body);
 
   res.json(project);
+});
+
+
+router.delete("/:id", (req, res) => {
+  const index = projects.findIndex(
+    (p) => p.id === req.params.id
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      error: "Проект не найден",
+    });
+  }
+
+  projects.splice(index, 1);
+
+  res.status(204).send();
 });
