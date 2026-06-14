@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { projects } from "../store/data";
+import { projects, volunteers } from "../store/data";
 import { projectSchema } from "../validators/projectValidator";
 
 const router = Router();
@@ -32,11 +32,18 @@ router.get("/:id", (req, res) => {
 
   if (!project) {
     return res.status(404).json({
-      error: "Такого проекта не существует",
+      error: "Проект не найден",
     });
   }
 
-  res.json(project);
+  const projectVolunteers = volunteers.filter(
+    (v) => v.projectId === project.id
+  );
+
+  res.json({
+    ...project,
+    volunteers: projectVolunteers,
+  });
 });
 
 export default router;
