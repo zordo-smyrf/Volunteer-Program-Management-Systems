@@ -50,3 +50,37 @@ router.post("/", (req, res) => {
 
   res.status(201).json(newVolunteer);
 });
+
+
+router.patch("/:id", (req, res) => {
+  const volunteer = volunteers.find(
+    (v) => v.id === req.params.id
+  );
+
+  if (!volunteer) {
+    return res.status(404).json({
+      error: "Volunteer not found",
+    });
+  }
+
+  Object.assign(volunteer, req.body);
+
+  res.json(volunteer);
+});
+
+
+router.delete("/:id", (req, res) => {
+  const index = volunteers.findIndex(
+    (v) => v.id === req.params.id
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      error: "Volunteer not found",
+    });
+  }
+
+  volunteers.splice(index, 1);
+
+  res.status(204).send();
+});
