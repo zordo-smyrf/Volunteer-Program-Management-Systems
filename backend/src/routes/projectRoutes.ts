@@ -4,7 +4,23 @@ import { projects } from "../store/data";
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.json(projects);
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  const items = projects.slice(
+    startIndex,
+    endIndex
+  );
+
+  res.json({
+    items,
+    total: projects.length,
+    page,
+    pages: Math.ceil(projects.length / limit),
+  });
 });
 
 
