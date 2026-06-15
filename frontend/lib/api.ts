@@ -15,3 +15,52 @@ export async function getVolunteers() {
 
   return response.json();
 }
+
+export async function createProject(data: {
+  title: string;
+  description: string;
+  location: string;
+  isActive: boolean;
+  startDate: string;
+}) {
+  const response = await fetch(
+    "http://localhost:4000/api/projects",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return response.json();
+}
+
+export async function createVolunteer(data: {
+  fullName: string;
+  email: string;
+  age: number;
+  projectId: string;
+}) {
+  const response = await fetch(
+    "http://localhost:4000/api/volunteers",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return response.json();
+}
+
+export async function getProject(id: string) {
+  const response = await fetch(
+    `http://localhost:4000/api/projects/${id}`
+  );
+
+  return response.json();
+}

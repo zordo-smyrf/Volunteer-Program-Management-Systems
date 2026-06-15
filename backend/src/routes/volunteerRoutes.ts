@@ -38,7 +38,6 @@ router.get("/search", (req, res) => {
 });
 export default router;
 
-
 router.get("/:id", (req, res) => {
   const volunteer = volunteers.find(
     (v) => v.id === req.params.id

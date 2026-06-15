@@ -1,30 +1,46 @@
-import { getVolunteers } from "@/lib/api";
+"use client";
 
-export default async function VolunteersPage() {
-  const data = await getVolunteers();
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+export default function VolunteersPage() {
+  const [volunteers, setVolunteers] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api/volunteers")
+      .then((res) => res.json())
+      .then((data) => setVolunteers(data.items));
+  }, []);
 
   return (
     <main className="p-8">
-      <h1 className="text-2xl font-bold mb-4">
-        Волонтеры
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">
+          Волонтёры
+        </h1>
 
-      <ul className="space-y-4">
-        {data.items.map((volunteer: any) => (
-          <li
-            key={volunteer.id}
-            className="border p-4 rounded"
+        <Link
+          href="/volunteers/new"
+          className="bg-green-500 text-white px-4 py-2 rounded"
+        >
+          + Добавить
+        </Link>
+      </div>
+
+      <div className="space-y-3">
+        {volunteers.map((v) => (
+          <div
+            key={v.id}
+            className="border p-3 rounded"
           >
-            <h2 className="font-semibold">
-              {volunteer.fullName}
-            </h2>
-
-            <p>Email: {volunteer.email}</p>
-
-            <p>Возраст: {volunteer.age}</p>
-          </li>
+            <p className="font-semibold">
+              {v.fullName}
+            </p>
+            <p>{v.email}</p>
+            <p>Возраст: {v.age}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }

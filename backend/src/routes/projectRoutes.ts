@@ -24,7 +24,6 @@ router.get("/", (req, res) => {
   });
 });
 
-
 router.get("/:id", (req, res) => {
   const project = projects.find(
     (p) => p.id === req.params.id
