@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export default async function ProjectsPage() {
   const data = await getProjects();
+  
 
   return (
     <main className="p-8">

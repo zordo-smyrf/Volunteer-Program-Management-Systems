@@ -59,6 +59,8 @@ export default function VolunteersPage() {
         >
           + Добавить
         </Link>
+      
+        
       </div>
 
       <input
@@ -105,6 +107,12 @@ export default function VolunteersPage() {
             <p>
               Возраст: {v.age}
             </p>
+            <Link
+  href={`/volunteers/${v.id}/edit`}
+  className="text-blue-500 underline"
+>
+  Редактировать
+</Link>
           </div>
         ))}
       </div>
