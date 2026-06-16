@@ -18,17 +18,20 @@ export default async function ProjectsPage() {
       </div>
       <ul className="space-y-4">
         {data.items.map((project: any) => (
-          <li
-            key={project.id}
-            className="border p-4 rounded"
-          >
-            <h2 className="font-semibold">
-              {project.title}
-            </h2>
-            <p>{project.description}</p>
-            <p> Город: {project.location}</p>
-            <p> Дата: {project.startDate}</p>
-          </li>
+          <Link href={`/projects/${project.id}`}>
+  <li
+    key={project.id}
+    className="border p-4 rounded cursor-pointer hover:bg-gray-50"
+  >
+    <h2 className="font-semibold">
+      {project.title}
+    </h2>
+
+    <p>{project.description}</p>
+    <p>Город: {project.location}</p>
+    <p>Дата: {project.startDate}</p>
+  </li>
+</Link>
         ))}
       </ul>
     </main>

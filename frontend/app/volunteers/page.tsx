@@ -5,12 +5,46 @@ import Link from "next/link";
 
 export default function VolunteersPage() {
   const [volunteers, setVolunteers] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
+  const [projects, setProjects] = useState<any[]>([]);
+  const [selectedProject, setSelectedProject] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:4000/api/volunteers")
       .then((res) => res.json())
       .then((data) => setVolunteers(data.items));
+
+    fetch("http://localhost:4000/api/projects")
+      .then((res) => res.json())
+      .then((data) => setProjects(data.items));
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!search.trim()) {
+        fetch("http://localhost:4000/api/volunteers")
+          .then((res) => res.json())
+          .then((data) => setVolunteers(data.items));
+
+        return;
+      }
+
+      fetch(
+        `http://localhost:4000/api/volunteers/search?q=${search}`
+      )
+        .then((res) => res.json())
+        .then((data) => setVolunteers(data));
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [search]);
+
+  const filteredVolunteers =
+    selectedProject === ""
+      ? volunteers
+      : volunteers.filter(
+          (v) => v.projectId === selectedProject
+        );
 
   return (
     <main className="p-8">
@@ -27,8 +61,37 @@ export default function VolunteersPage() {
         </Link>
       </div>
 
+      <input
+        type="text"
+        placeholder="Поиск по имени..."
+        className="border p-2 rounded w-full mb-4"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <select
+        className="border p-2 rounded w-full mb-4"
+        value={selectedProject}
+        onChange={(e) =>
+          setSelectedProject(e.target.value)
+        }
+      >
+        <option value="">
+          Все проекты
+        </option>
+
+        {projects.map((project) => (
+          <option
+            key={project.id}
+            value={project.id}
+          >
+            {project.title}
+          </option>
+        ))}
+      </select>
+
       <div className="space-y-3">
-        {volunteers.map((v) => (
+        {filteredVolunteers.map((v) => (
           <div
             key={v.id}
             className="border p-3 rounded"
@@ -36,8 +99,12 @@ export default function VolunteersPage() {
             <p className="font-semibold">
               {v.fullName}
             </p>
+
             <p>{v.email}</p>
-            <p>Возраст: {v.age}</p>
+
+            <p>
+              Возраст: {v.age}
+            </p>
           </div>
         ))}
       </div>

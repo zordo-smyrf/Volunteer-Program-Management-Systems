@@ -3,9 +3,11 @@ import { getProject } from "@/lib/api";
 export default async function ProjectPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const project = await getProject(params.id);
+  const { id } = await params;
+
+  const project = await getProject(id);
 
   return (
     <main className="p-8">
@@ -15,19 +17,21 @@ export default async function ProjectPage({
 
       <p>{project.description}</p>
 
-      <h2 className="mt-6 font-bold">
-        Волонтёры
+      <h2 className="mt-6 text-xl font-semibold">
+        Волонтёры проекта
       </h2>
 
-      {project.volunteers?.length ? (
-        project.volunteers.map((v: any) => (
-          <div key={v.id}>
-            {v.fullName}
+      <div className="space-y-3 mt-3">
+        {project.volunteers.map((v: any) => (
+          <div
+            key={v.id}
+            className="border p-3 rounded"
+          >
+            <p>{v.fullName}</p>
+            <p>{v.email}</p>
           </div>
-        ))
-      ) : (
-        <p>Нет волонтёров</p>
-      )}
+        ))}
+      </div>
     </main>
   );
 }
