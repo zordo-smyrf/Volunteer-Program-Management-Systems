@@ -45,42 +45,39 @@
 
 ## Структура проекта
 
-
 frontend/
-app/
-    projects/
-        [id]/
-            edit/
-            page.tsx
-        new/
-            page.tsx
-        page.tsx
-    volunteers/
-        [id]/
-            edit/
-        new/
-            page.tsx
-        page.tsx
-    layout.tsx
-    page.tsx
-components/
-lib/
-
-
+├── app/
+│   ├── projects/
+│   │   ├── [id]/
+│   │   │   ├── edit/
+│   │   │   └── page.tsx
+│   │   ├── new/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── volunteers/
+│   │   ├── [id]/
+│   │   │   └── edit/
+│   │   ├── new/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/
+└── lib/
 
 backend/
-    src/
-        routes/
-            projectRoutes.ts
-            volunteerRoutes.ts
-        store/
-            data.ts
-        types/
-            project.ts
-            volunteer.ts
-        server.ts  
-
-
+└── src/
+    ├── routes/
+    │   ├── projectRoutes.ts
+    │   └── volunteerRoutes.ts
+    ├── store/
+    │   └── data.ts
+    ├── types/
+    │   ├── project.ts
+    │   └── volunteer.ts
+    └── server.ts
+  
 ---
 
 ## Запуск проекта
