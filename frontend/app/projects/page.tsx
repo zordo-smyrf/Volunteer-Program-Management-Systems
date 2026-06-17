@@ -7,34 +7,23 @@ export default async function ProjectsPage() {
   return (
     <main className="p-8">
       <div className="flex justify-between items-center mb-6">
-      <h1 className="text-2xl font-bold mb-4">
-        Проектыы
-      </h1>
-      <Link
-      href="/projects/new"
-      className="bg-green-500 text-white px-4 py-2 rounded">
-      + Создать проект
-      </Link>
+        <h1 className="text-2xl font-bold mb-4"> Проекты </h1>
+        <Link href="/projects/new" className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 cursor-pointer">
+          + Создать проект
+        </Link>
       </div>
-      <ul className="space-y-4">
-        {data.items.map((project: any) => (
-          <Link href={`/projects/${project.id}`}>
-  <li
-    key={project.id}
-    className="border p-4 rounded cursor-pointer hover:bg-gray-50"
-  >
-    <h2 className="font-semibold">
-      {project.title}
-    </h2>
 
-    <p>{project.description}</p>
-    <p>Город: {project.location}</p>
-    <p>Дата: {project.startDate}</p>
-  </li>
-</Link>
-        ))}
+      <ul className="space-y-4">{data.items.map((project: any) => (
+        <Link key={project.id} href={`/projects/${project.id}`}>
+          <li className="border p-4 rounded cursor-pointer mt-3">
+            <h2 className="font-semibold"> {project.title}</h2>
+            <p>{project.description}</p>
+            <p>Город: {project.location}</p>
+            <p>Дата: {project.startDate}</p>
+          </li>
+        </Link>
+      ))}
       </ul>
     </main>
-    
   );
 }

@@ -1,0 +1,11 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function BackButton() {
+    const router = useRouter();
+    return (
+        <button onClick={() => router.back()}
+            className="mb-4 px-4 py-2 bg-gray-500 hover:bg-gray-600 cursor-pointer text-white rounded mr-4"> ← Назад </button>
+    );
+}

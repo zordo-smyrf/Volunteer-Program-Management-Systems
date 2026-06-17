@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import BackButton from "@/components/BackButton";
 
 export default function NewProjectPage() {
   const router = useRouter();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] =
     useState("");
@@ -20,9 +20,7 @@ export default function NewProjectPage() {
     e: React.FormEvent
   ) {
     e.preventDefault();
-
     setLoading(true);
-
     try {
       await fetch(
         "http://localhost:4000/api/projects",
@@ -41,14 +39,14 @@ export default function NewProjectPage() {
           }),
         }
       );
-
       router.push("/projects");
     } catch (error) {
       console.error(error);
     }
-
     setLoading(false);
   }
+
+
 
   return (
     <main className="p-8">
@@ -56,62 +54,26 @@ export default function NewProjectPage() {
         Создание проекта
       </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 max-w-md"
-      >
-        <input
-          type="text"
-          placeholder="Название"
-          value={title}
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+        <input type="text" placeholder="Название" value={title} className="border p-2 w-full" required
           onChange={(e) =>
-            setTitle(e.target.value)
-          }
-          className="border p-2 w-full"
-          required
-        />
+            setTitle(e.target.value)} />
 
-        <textarea
-          placeholder="Описание"
-          value={description}
+        <textarea placeholder="Описание" value={description} className="border p-2 w-full" required
           onChange={(e) =>
             setDescription(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-          required
-        />
+              e.target.value)} />
 
-        <input
-          type="text"
-          placeholder="Город"
-          value={location}
+        <input type="text" placeholder="Город" value={location} className="border p-2 w-full" required
           onChange={(e) =>
-            setLocation(e.target.value)
-          }
-          className="border p-2 w-full"
-          required
-        />
+            setLocation(e.target.value)} />
 
-        <input
-          type="date"
-          value={startDate}
+        <input type="date" value={startDate} className="border p-2 w-full" required
           onChange={(e) =>
-            setStartDate(e.target.value)
-          }
-          className="border p-2 w-full"
-          required
-        />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          {loading
-            ? "Создание..."
-            : "Создать"}
+            setStartDate(e.target.value)} />
+        <BackButton />
+        <button type="submit" disabled={loading} className="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white px-4 py-2 rounded">
+          {"Создать"}
         </button>
       </form>
     </main>

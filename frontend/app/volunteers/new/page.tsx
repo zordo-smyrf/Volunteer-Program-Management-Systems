@@ -2,19 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import BackButton from "@/components/BackButton";
 
 export default function NewVolunteerPage() {
   const router = useRouter();
-
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [projectId, setProjectId] = useState("");
-
   const [projects, setProjects] = useState<
     { id: string; title: string }[]
   >([]);
-
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -32,18 +30,14 @@ export default function NewVolunteerPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    // 💥 ПРОВЕРКИ
     if (!fullName || !email || !age) {
       setError("Заполни все поля");
       return;
     }
-
     if (!projectId) {
       setError("Выбери проект");
       return;
     }
-
     try {
       setLoading(true);
 
@@ -62,11 +56,6 @@ export default function NewVolunteerPage() {
           }),
         }
       );
-
-      if (!res.ok) {
-        throw new Error("Ошибка создания волонтёра");
-      }
-
       router.push("/volunteers");
     } catch (err) {
       setError("Не удалось создать волонтёра");
@@ -75,63 +64,43 @@ export default function NewVolunteerPage() {
     }
   };
 
+
+
   return (
     <main className="p-8">
       <h1 className="text-2xl font-bold mb-6">
-        Создание волонтёра
+        Создание волонтeра
       </h1>
-
-      {error && (
-        <p className="text-red-500 mb-4">
-          {error}
-        </p>
-      )}
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 max-w-md"
-      >
-        <input
-          className="border p-2 w-full"
-          placeholder="ФИО"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-        />
+        className="space-y-4 max-w-md">
 
         <input
-          className="border p-2 w-full"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          className="border p-2 w-full" placeholder="ФИО" value={fullName}
+          onChange={(e) => setFullName(e.target.value)} />
 
         <input
-          className="border p-2 w-full"
-          type="number"
-          placeholder="Возраст"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
+          className="border p-2 w-full" placeholder="Email" value={email}
+          onChange={(e) => setEmail(e.target.value)} />
+
+        <input
+          className="border p-2 w-full" type="number" placeholder="Возраст" value={age}
+          onChange={(e) => setAge(e.target.value)} />
 
         <select
-          className="border p-2 w-full"
-          value={projectId}
-          onChange={(e) => setProjectId(e.target.value)}
-        >
-          <option value="">Выберите проект</option>
+          className="w-full border border-gray-600 bg-zinc-900 text-white p-3" value={projectId}
+          onChange={(e) => setProjectId(e.target.value)}>
 
+          <option value=""> Выберите проект </option>
           {projects.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.title}
-            </option>
+            <option key={p.id} value={p.id}> {p.title}</option>
           ))}
         </select>
-
+        <BackButton />
         <button
-          disabled={loading}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          {loading ? "Создание..." : "Создать"}
+          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 cursor-pointer">
+          {"Создать"}
         </button>
       </form>
     </main>
