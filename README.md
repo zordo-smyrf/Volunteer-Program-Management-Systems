@@ -45,6 +45,7 @@
 
 ## Структура проекта
 
+```text
 frontend/
 ├── app/
 │   ├── projects/
@@ -62,7 +63,6 @@ frontend/
 │   │   └── page.tsx
 │   ├── layout.tsx
 │   └── page.tsx
-│
 ├── components/
 └── lib/
 
@@ -77,6 +77,7 @@ backend/
     │   ├── project.ts
     │   └── volunteer.ts
     └── server.ts
+```
   
 ---
 
