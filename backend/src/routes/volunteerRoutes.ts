@@ -52,7 +52,6 @@ router.get("/:id", (req, res) => {
   res.json(volunteer);
 });
 
-
 router.post("/", (req, res) => {
   const validation = volunteerSchema.safeParse(req.body);
 

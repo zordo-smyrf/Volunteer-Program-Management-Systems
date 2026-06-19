@@ -38,7 +38,19 @@ export default function VolunteersPage() {
       : volunteers.filter(
         (v) => v.projectId === selectedProject
       );
+  const deleteVolunteer = async (id: string) => {
 
+    await fetch(
+      `http://localhost:4000/api/volunteers/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    setVolunteers(
+      volunteers.filter(v => v.id !== id)
+    );
+  };
 
 
   return (
@@ -76,9 +88,35 @@ export default function VolunteersPage() {
       <div className="space-y-3">
         {filteredVolunteers.map((v) => (
           <div key={v.id} className="border p-3 rounded">
-            <p className="font-semibold">{v.fullName}</p>
+
+            <p className="font-semibold">
+              {v.fullName}
+            </p>
+
             <p>{v.email}</p>
-            <p>Возраст: {v.age}</p>
+
+            <p>
+              Возраст: {v.age}
+            </p>
+
+            <div className="flex gap-3 mt-3">
+
+              <Link
+                href={`/volunteers/${v.id}/edit`}
+                className="bg-blue-600 px-3 py-1 rounded text-white"
+              >
+                Редактировать
+              </Link>
+
+              <button
+                onClick={() => deleteVolunteer(v.id)}
+                className="bg-red-600 px-3 py-1 rounded text-white"
+              >
+                Удалить
+              </button>
+
+            </div>
+
           </div>
         ))}
       </div>

@@ -71,25 +71,29 @@ export default function NewVolunteerPage() {
       <h1 className="text-2xl font-bold mb-6">
         Создание волонтeра
       </h1>
-
+      {error && (
+        <div className="mb-4 rounded bg-red-500/20 border border-red-500 p-3 text-red-400">
+          {error}
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         className="space-y-4 max-w-md">
 
         <input
-          className="border p-2 w-full" placeholder="ФИО" value={fullName}
+          className="border p-2 w-full" placeholder="ФИО" value={fullName} required
           onChange={(e) => setFullName(e.target.value)} />
 
         <input
-          className="border p-2 w-full" placeholder="Email" value={email}
+          className="border p-2 w-full" placeholder="Email" value={email} required
           onChange={(e) => setEmail(e.target.value)} />
 
         <input
-          className="border p-2 w-full" type="number" placeholder="Возраст" value={age}
+          className="border p-2 w-full" type="number" placeholder="Возраст" value={age} required
           onChange={(e) => setAge(e.target.value)} />
 
         <select
-          className="w-full border border-gray-600 bg-zinc-900 text-white p-3" value={projectId}
+          className="w-full border border-gray-600 bg-zinc-900 text-white p-3" value={projectId} required
           onChange={(e) => setProjectId(e.target.value)}>
 
           <option value=""> Выберите проект </option>
