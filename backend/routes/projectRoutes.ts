@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { projects, volunteers } from "../store/data";
-import { projectSchema } from "../validators/projectValidator";
+import { projects, volunteers } from "../store/data.js";
+import { projectSchema } from "../validators/projectValidator.js";
 
 const router = Router();
 

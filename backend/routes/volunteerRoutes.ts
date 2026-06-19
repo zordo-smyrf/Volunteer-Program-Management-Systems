@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { volunteers } from "../store/data";
-import { volunteerSchema } from "../validators/volunteerValidator";
+import { volunteers } from "../store/data.js";
+import { volunteerSchema } from "../validators/volunteerValidator.js";
+import { Project } from "../types/project.js";
+import { Volunteer } from "../types/volunteer.js";
 
 const router = Router();
 
@@ -40,7 +42,7 @@ export default router;
 
 router.get("/:id", (req, res) => {
   const volunteer = volunteers.find(
-    (v) => v.id === req.params.id
+    (v: Volunteer) => v.id === req.params.id
   );
 
   if (!volunteer) {
@@ -74,7 +76,7 @@ router.post("/", (req, res) => {
 
 router.patch("/:id", (req, res) => {
   const volunteer = volunteers.find(
-    (v) => v.id === req.params.id
+    (v: Volunteer) => v.id === req.params.id
   );
 
   if (!volunteer) {
@@ -91,7 +93,7 @@ router.patch("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const index = volunteers.findIndex(
-    (v) => v.id === req.params.id
+    (v: Volunteer) => v.id === req.params.id
   );
 
   if (index === -1) {
