@@ -1,5 +1,5 @@
-import { Project } from "../types/project";
-import { Volunteer } from "../types/volunteer";
+import { Project } from "../types/project.js";
+import { Volunteer } from "../types/volunteer.js";
 
 const project1Id = crypto.randomUUID();
 const project2Id = crypto.randomUUID();
