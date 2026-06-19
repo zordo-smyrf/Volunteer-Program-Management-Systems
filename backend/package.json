@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node-dev server.ts",
     "build": "echo 'Skipping tsc build...'",
-    "start": "node ./node_modules/ts-node/dist/bin.js server.ts"
+    "start": "node ./node_modules/ts-node/dist/bin.js /app/server.ts"
   },
   "keywords": [],
   "author": "",
