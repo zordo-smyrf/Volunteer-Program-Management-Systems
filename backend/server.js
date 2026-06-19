@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
     res.json({ message: "Backend работает" });
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log("Server started on port " + PORT);
