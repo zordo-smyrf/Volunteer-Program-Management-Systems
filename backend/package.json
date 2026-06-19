@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node-dev server.ts",
     "build": "npm install tsx",
-    "start": "node --import tsx server.ts"
+    "start": "node --import tsx $(find . -name server.ts -not -path '*/node_modules/*' | head -n 1)"
   },
   "keywords": [],
   "author": "",
