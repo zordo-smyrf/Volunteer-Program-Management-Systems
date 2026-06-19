@@ -23,8 +23,7 @@ export async function createProject(data: {
   isActive: boolean;
   startDate: string;
 }) {
-  const response = await fetch(
-    "http://localhost:4000/api/projects",
+  const response = await fetch(api.projects,
     {
       method: "POST",
       headers: {
@@ -43,8 +42,7 @@ export async function createVolunteer(data: {
   age: number;
   projectId: string;
 }) {
-  const response = await fetch(
-    "http://localhost:4000/api/volunteers",
+  const response = await fetch(api.volunteers,
     {
       method: "POST",
       headers: {
@@ -58,9 +56,19 @@ export async function createVolunteer(data: {
 }
 
 export async function getProject(id: string) {
-  const response = await fetch(
-    `http://localhost:4000/api/projects/${id}`
-  );
-
+  const response = await fetch(`${API}/api/projects/${id}`)
   return response.json();
 }
+
+const API = process.env.NEXT_PUBLIC_API_URL;
+
+export const api = {
+  projects: `${API}/api/projects`,
+  projectById: (id: string) => `${API}/api/projects/${id}`,
+
+  volunteers: `${API}/api/volunteers`,
+  volunteerById: (id: string) => `${API}/api/volunteers/${id}`,
+
+  volunteerSearch: (q: string) =>
+    `${API}/api/volunteers/search?q=${q}`,
+};

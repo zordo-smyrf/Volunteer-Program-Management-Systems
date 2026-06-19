@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { api } from "@/lib/api";
 
 export default function VolunteersPage() {
   const [volunteers, setVolunteers] = useState<any[]>([]);
@@ -9,24 +10,22 @@ export default function VolunteersPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
   useEffect(() => {
-    fetch("http://localhost:4000/api/volunteers")
+    fetch(api.volunteers)
       .then((res) => res.json())
       .then((data) => setVolunteers(data.items));
-    fetch("http://localhost:4000/api/projects")
+    fetch(api.volunteers)
       .then((res) => res.json())
       .then((data) => setProjects(data.items));
   }, []);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!search.trim()) {
-        fetch("http://localhost:4000/api/volunteers")
+        fetch(api.volunteers)
           .then((res) => res.json())
           .then((data) => setVolunteers(data.items));
         return;
       }
-      fetch(
-        `http://localhost:4000/api/volunteers/search?q=${search}`
-      )
+      fetch(`${api}/api/volunteers/${search}`)
         .then((res) => res.json())
         .then((data) => setVolunteers(data));
     }, 500);
@@ -40,8 +39,7 @@ export default function VolunteersPage() {
       );
   const deleteVolunteer = async (id: string) => {
 
-    await fetch(
-      `http://localhost:4000/api/volunteers/${id}`,
+    await fetch(`${api}/api/projects/${id}`,
       {
         method: "DELETE"
       }

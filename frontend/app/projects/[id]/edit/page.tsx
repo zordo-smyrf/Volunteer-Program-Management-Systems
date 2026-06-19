@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { api } from "@/lib/api";
 
 export default function EditProject() {
 
@@ -15,7 +16,7 @@ export default function EditProject() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:4000/api/projects/${id}`)
+        fetch(api.projects)
             .then(res => res.json())
             .then(project => {
 
@@ -31,8 +32,7 @@ export default function EditProject() {
 
     const save = async () => {
 
-        await fetch(
-            `http://localhost:4000/api/projects/${id}`,
+        await fetch(`${api}/api/projects/${id}`,
             {
                 method: "PATCH",
                 headers: {

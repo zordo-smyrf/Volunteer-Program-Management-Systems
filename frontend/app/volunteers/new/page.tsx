@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import BackButton from "@/components/BackButton";
+import { api } from "@/lib/api";
 
 export default function NewVolunteerPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function NewVolunteerPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/projects")
+    fetch(api.volunteers)
       .then((res) => res.json())
       .then((data) => {
         setProjects(data.items || []);
@@ -41,8 +42,7 @@ export default function NewVolunteerPage() {
     try {
       setLoading(true);
 
-      const res = await fetch(
-        "http://localhost:4000/api/volunteers",
+      const res = await fetch(api.volunteers,
         {
           method: "POST",
           headers: {

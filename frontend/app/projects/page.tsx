@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<any[]>([]);
@@ -11,13 +12,13 @@ export default function ProjectsPage() {
   }, []);
 
   const loadProjects = async () => {
-    const res = await fetch("http://localhost:4000/api/projects");
+    const res = await fetch(api.projects);
     const data = await res.json();
     setProjects(data.items);
   };
 
   const deleteProject = async (id: string) => {
-    await fetch(`http://localhost:4000/api/projects/${id}`, {
+    await fetch(`${api}/api/projects/${id}`, {
       method: "DELETE",
     });
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { api } from "@/lib/api";
 
 export default function EditVolunteer() {
 
@@ -15,7 +16,7 @@ export default function EditVolunteer() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:4000/api/volunteers/${id}`)
+        fetch(`${api}/api/volunteers/${id}`)
             .then(res => res.json())
             .then(v => {
 
@@ -30,9 +31,7 @@ export default function EditVolunteer() {
 
     const save = async () => {
 
-        await fetch(
-
-            `http://localhost:4000/api/volunteers/${id}`,
+        await fetch(`${api}/api/volunteers/${id}`,
 
             {
                 method: "PATCH",

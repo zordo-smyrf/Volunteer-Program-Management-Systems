@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import BackButton from "@/components/BackButton";
+import { api } from "@/lib/api";
 
 export default function NewProjectPage() {
   const router = useRouter();
@@ -22,23 +23,21 @@ export default function NewProjectPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await fetch(
-        "http://localhost:4000/api/projects",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            description,
-            location,
-            isActive: true,
-            startDate,
-          }),
-        }
-      );
+      await fetch(api.projects),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          location,
+          isActive: true,
+          startDate,
+        }),
+      }
       router.push("/projects");
     } catch (error) {
       console.error(error);
