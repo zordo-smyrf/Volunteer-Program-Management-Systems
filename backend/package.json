@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node-dev server.ts",
-    "build": "echo 'Skipping tsc build...'",
-    "start": "node ./node_modules/ts-node/dist/bin.js /app/server.ts"
+    "build": "echo 'Skipping build...'",
+    "start": "node --import tsx server.ts"
   },
   "keywords": [],
   "author": "",
