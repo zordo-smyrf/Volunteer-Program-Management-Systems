@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { projects, volunteers } from "../store/data.js";
 import { projectSchema } from "../validators/projectValidator.js";
+import { Project } from "../types/project.js";
+import { Volunteer } from "../types/volunteer.js";
 
 const router = Router();
 
@@ -26,7 +28,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   const project = projects.find(
-    (p) => p.id === req.params.id
+    (p: Project) => p.id === req.params.id
   );
 
   if (!project) {
@@ -36,7 +38,7 @@ router.get("/:id", (req, res) => {
   }
 
   const projectVolunteers = volunteers.filter(
-    (v) => v.projectId === project.id
+    (v: Volunteer) => v.projectId === project.id
   );
 
   res.json({
@@ -70,7 +72,7 @@ router.post("/", (req, res) => {
 
 router.patch("/:id", (req, res) => {
   const project = projects.find(
-    (p) => p.id === req.params.id
+    (p: Project) => p.id === req.params.id
   );
 
   if (!project) {
@@ -87,7 +89,7 @@ router.patch("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const index = projects.findIndex(
-    (p) => p.id === req.params.id
+    (p: Project) => p.id === req.params.id
   );
 
   if (index === -1) {
