@@ -3,6 +3,7 @@ import { projects, volunteers } from "../store/data.js";
 import { projectSchema } from "../validators/projectValidator.js";
 import { Project } from "../types/project.js";
 import { Volunteer } from "../types/volunteer.js";
+import crypto from "crypto";
 
 const router = Router();
 
@@ -13,10 +14,7 @@ router.get("/", (req, res) => {
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
-  const items = projects.slice(
-    startIndex,
-    endIndex
-  );
+  const items = projects.slice(startIndex, endIndex);
 
   res.json({
     items,
@@ -27,9 +25,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const project = projects.find(
-    (p: Project) => p.id === req.params.id
-  );
+  const project = projects.find((p: Project) => p.id === req.params.id);
 
   if (!project) {
     return res.status(404).json({
@@ -47,9 +43,6 @@ router.get("/:id", (req, res) => {
   });
 });
 
-export default router;
-
-
 router.post("/", (req, res) => {
   const validation = projectSchema.safeParse(req.body);
 
@@ -65,15 +58,11 @@ router.post("/", (req, res) => {
   };
 
   projects.push(newProject);
-
   res.status(201).json(newProject);
 });
 
-
 router.patch("/:id", (req, res) => {
-  const project = projects.find(
-    (p: Project) => p.id === req.params.id
-  );
+  const project = projects.find((p: Project) => p.id === req.params.id);
 
   if (!project) {
     return res.status(404).json({
@@ -82,15 +71,11 @@ router.patch("/:id", (req, res) => {
   }
 
   Object.assign(project, req.body);
-
   res.json(project);
 });
 
-
 router.delete("/:id", (req, res) => {
-  const index = projects.findIndex(
-    (p: Project) => p.id === req.params.id
-  );
+  const index = projects.findIndex((p: Project) => p.id === req.params.id);
 
   if (index === -1) {
     return res.status(404).json({
@@ -99,6 +84,8 @@ router.delete("/:id", (req, res) => {
   }
 
   projects.splice(index, 1);
-
   res.status(204).send();
 });
+
+// ПРАВИЛЬНО: экспорт строго в самом конце файла!
+export default router;

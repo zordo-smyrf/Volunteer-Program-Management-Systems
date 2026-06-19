@@ -6,10 +6,19 @@ import volunteerRoutes from "./routes/volunteerRoutes.js";
 
 const app = express();
 app.use(cors({
-    origin: [
-        'https://project-ky1oh.vercel.app',
-        'http://localhost:3000'
-    ],
+    origin: function (origin, callback) {
+        // Разрешаем запросы без origin (например, Postman или мобильные приложения)
+        if (!origin) return callback(null, true);
+
+        const isLocalhost = origin.startsWith('http://localhost:');
+        const isVercel = origin.endsWith('.vercel.app');
+
+        if (isLocalhost || isVercel) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true

@@ -3,6 +3,7 @@ import { volunteers } from "../store/data.js";
 import { volunteerSchema } from "../validators/volunteerValidator.js";
 import { Project } from "../types/project.js";
 import { Volunteer } from "../types/volunteer.js";
+import crypto from "crypto";
 
 const router = Router();
 
@@ -13,10 +14,7 @@ router.get("/", (req, res) => {
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
-  const items = volunteers.slice(
-    startIndex,
-    endIndex
-  );
+  const items = volunteers.slice(startIndex, endIndex);
 
   res.json({
     items,
@@ -26,24 +24,18 @@ router.get("/", (req, res) => {
   });
 });
 
-
 router.get("/search", (req, res) => {
   const query = String(req.query.q || "").toLowerCase();
 
   const filtered = volunteers.filter((volunteer) =>
-    volunteer.fullName
-      .toLowerCase()
-      .includes(query)
+    volunteer.fullName.toLowerCase().includes(query)
   );
 
   res.json(filtered);
 });
-export default router;
 
 router.get("/:id", (req, res) => {
-  const volunteer = volunteers.find(
-    (v: Volunteer) => v.id === req.params.id
-  );
+  const volunteer = volunteers.find((v: Volunteer) => v.id === req.params.id);
 
   if (!volunteer) {
     return res.status(404).json({
@@ -63,46 +55,40 @@ router.post("/", (req, res) => {
     });
   }
 
-  const newProject = {
+  const newVolunteer = {
     id: crypto.randomUUID(),
     ...validation.data,
   };
 
-  volunteers.push(newProject);
-
-  res.status(201).json(newProject);
+  volunteers.push(newVolunteer);
+  res.status(201).json(newVolunteer);
 });
 
-
 router.patch("/:id", (req, res) => {
-  const volunteer = volunteers.find(
-    (v: Volunteer) => v.id === req.params.id
-  );
+  const volunteer = volunteers.find((v: Volunteer) => v.id === req.params.id);
 
   if (!volunteer) {
     return res.status(404).json({
-      error: "Volunteer not found",
+      error: "Волонтер не найден",
     });
   }
 
   Object.assign(volunteer, req.body);
-
   res.json(volunteer);
 });
 
-
 router.delete("/:id", (req, res) => {
-  const index = volunteers.findIndex(
-    (v: Volunteer) => v.id === req.params.id
-  );
+  const index = volunteers.findIndex((v: Volunteer) => v.id === req.params.id);
 
   if (index === -1) {
     return res.status(404).json({
-      error: "Volunteer not found",
+      error: "Волонтер не найден",
     });
   }
 
   volunteers.splice(index, 1);
-
   res.status(204).send();
 });
+
+// ПРАВИЛЬНО: Экспорт строго в конце файла!
+export default router;
