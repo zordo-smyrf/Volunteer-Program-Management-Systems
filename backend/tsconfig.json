@@ -42,4 +42,11 @@
   "ts-node": {
     "esm": true
   },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
