@@ -13,7 +13,7 @@ export default function VolunteersPage() {
     fetch(api.volunteers)
       .then((res) => res.json())
       .then((data) => setVolunteers(data.items));
-    fetch(api.volunteers)
+    fetch(api.projects)
       .then((res) => res.json())
       .then((data) => setProjects(data.items));
   }, []);
@@ -22,10 +22,10 @@ export default function VolunteersPage() {
       if (!search.trim()) {
         fetch(api.volunteers)
           .then((res) => res.json())
-          .then((data) => setVolunteers(data.items));
+          .then((data) => setVolunteers(data.items || data));
         return;
       }
-      fetch(`${api}/api/volunteers/${search}`)
+      fetch(`${api.volunteers}/${search}`)
         .then((res) => res.json())
         .then((data) => setVolunteers(data));
     }, 500);
@@ -39,7 +39,7 @@ export default function VolunteersPage() {
       );
   const deleteVolunteer = async (id: string) => {
 
-    await fetch(`${api}/api/projects/${id}`,
+    await fetch(`${api.volunteers}/${id}`,
       {
         method: "DELETE"
       }

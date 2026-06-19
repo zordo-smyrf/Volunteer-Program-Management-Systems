@@ -56,19 +56,13 @@ export async function createVolunteer(data: {
 }
 
 export async function getProject(id: string) {
-  const response = await fetch(`${API}/api/projects/${id}`)
+  const response = await fetch(`${BASE_URL}/api/projects/${id}`)
   return response.json();
 }
 
-const API = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export const api = {
-  projects: `${API}/api/projects`,
-  projectById: (id: string) => `${API}/api/projects/${id}`,
-
-  volunteers: `${API}/api/volunteers`,
-  volunteerById: (id: string) => `${API}/api/volunteers/${id}`,
-
-  volunteerSearch: (q: string) =>
-    `${API}/api/volunteers/search?q=${q}`,
+  volunteers: `${BASE_URL}/api/volunteers`,
+  projects: `${BASE_URL}/api/projects`
 };
