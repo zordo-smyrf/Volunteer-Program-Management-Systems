@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node-dev server.ts",
-    "build": "echo 'Skipping build...'",
+    "build": "npm install tsx",
     "start": "node --import tsx server.ts"
   },
   "keywords": [],
