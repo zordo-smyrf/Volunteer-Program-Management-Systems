@@ -5,8 +5,15 @@ import projectRoutes from "./routes/projectRoutes.js";
 import volunteerRoutes from "./routes/volunteerRoutes.js";
 
 const app = express();
-
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin: [
+        'https://project-ky1oh.vercel.app',
+        'http://localhost:3000'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(express.json());
 
 app.use("/api/projects", projectRoutes);
