@@ -1,4 +1,10 @@
 {
+  "name": "bountiful-learning-root",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "cd backend && node --import tsx server.js"
+  },
   "dependencies": {
     "ts-node": "^10.9.2",
     "tsx": "^4.22.4"

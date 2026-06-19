@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node-dev server.js",
-    "build": "npm install tsx",
-    "start": "node --import tsx $(find . -name server.js -not -path '*/node_modules/*' | head -n 1)"
+    "build": "echo 'No build step needed'",
+    "start": "node --import tsx server.js"
   },
   "keywords": [],
   "author": "",
