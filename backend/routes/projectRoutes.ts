@@ -87,5 +87,4 @@ router.delete("/:id", (req, res) => {
   res.status(204).send();
 });
 
-// ПРАВИЛЬНО: экспорт строго в самом конце файла!
 export default router;

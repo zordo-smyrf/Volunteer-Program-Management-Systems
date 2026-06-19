@@ -1,10 +1,7 @@
 const API_URL = "http://localhost:4000/api";
 
 export async function getProjects() {
-  const response = await fetch(
-    `${API_URL}/projects`
-  );
-
+  const response = await fetch(api.projects);
   return response.json();
 }
 
@@ -23,16 +20,11 @@ export async function createProject(data: {
   isActive: boolean;
   startDate: string;
 }) {
-  const response = await fetch(api.projects,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  );
-
+  const response = await fetch(api.projects, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
   return response.json();
 }
 
@@ -56,7 +48,7 @@ export async function createVolunteer(data: {
 }
 
 export async function getProject(id: string) {
-  const response = await fetch(`${BASE_URL}/api/projects/${id}`)
+  const response = await fetch(`${api.projects}/${id}`);
   return response.json();
 }
 
