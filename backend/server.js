@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 
-import projectRoutes from "./routes/projectRoutes.js";
-import volunteerRoutes from "./routes/volunteerRoutes.js";
+import projectRoutes from "./backend/routes/projectRoutes.js";
+import volunteerRoutes from "./backend/routes/volunteerRoutes.js";
 
 const app = express();
 app.use(cors({
