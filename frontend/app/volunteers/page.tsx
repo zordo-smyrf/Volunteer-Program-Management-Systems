@@ -54,69 +54,110 @@ export default function VolunteersPage() {
 
 
   return (
-    <main className="p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">
-          Волонтeры
-        </h1>
+    <main className="container-ui">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">
+            Волонтёры
+          </h1>
+
+          <p className="text-slate-400">
+            Управление участниками программы
+          </p>
+        </div>
+
         <Link
-          href="/volunteers/new" className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 cursor-pointer">
-          + Добавить
+          href="/volunteers/new"
+          className="btn"
+        >
+          + Добавить волонтёра
         </Link>
       </div>
 
-      <input
-        type="text" placeholder="Поиск по имени..." className="border p-2 rounded w-full mb-4" value={search}
-        onChange={(e) => setSearch(e.target.value)} />
+      <div className="card mb-6">
+        <div className="grid md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Поиск по имени..."
+            className="input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-      <select
-        className="w-full border border-gray-600 bg-zinc-900 text-white p-3 mb-5 cursor-pointer" value={selectedProject}
-        onChange={(e) =>
-          setSelectedProject(e.target.value)}>
+          <select
+            className="input cursor-pointer"
+            value={selectedProject}
+            onChange={(e) =>
+              setSelectedProject(e.target.value)
+            }
+          >
+            <option value="">
+              Все проекты
+            </option>
 
-        <option value=""> Все проекты </option>
+            {projects.map((project) => (
+              <option
+                key={project.id}
+                value={project.id}
+              >
+                {project.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-        {projects.map((project) => (
-          <option
-            key={project.id}
-            value={project.id}>
-            {project.title}
-          </option>
-        ))}
-      </select>
+      {filteredVolunteers.length === 0 && (
+        <div className="card text-center py-12">
+          <h2 className="text-xl font-semibold mb-2">
+            Волонтёры не найдены
+          </h2>
 
-      <div className="space-y-3">
+          <p className="text-slate-400">
+            Попробуйте изменить фильтр или добавить нового волонтёра.
+          </p>
+        </div>
+      )}
+
+      <div className="grid lg:grid-cols-2 gap-5">
         {filteredVolunteers.map((v) => (
-          <div key={v.id} className="border p-3 rounded">
+          <div
+            key={v.id}
+            className="card hover:scale-[1.01] transition-all duration-200"
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h2 className="text-xl font-bold mb-1">
+                  {v.fullName}
+                </h2>
 
-            <p className="font-semibold">
-              {v.fullName}
-            </p>
+                <p className="text-slate-400">
+                  {v.email}
+                </p>
+              </div>
 
-            <p>{v.email}</p>
-
-            <p>
-              Возраст: {v.age}
-            </p>
-
-            <div className="flex gap-3 mt-3">
-
-              <Link
-                href={`/volunteers/${v.id}/edit`}
-                className="bg-blue-600 px-3 py-1 rounded text-white"
-              >
-                Редактировать
-              </Link>
-
-              <button
-                onClick={() => deleteVolunteer(v.id)}
-                className="bg-red-600 px-3 py-1 rounded text-white"
-              >
-                Удалить
-              </button>
-
+              <div className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-sm">
+                {v.age} лет
+              </div>
             </div>
 
+            <div className="border-t border-white/10 pt-4 mt-4">
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href={`/volunteers/${v.id}/edit`}
+                  className="btn"
+                >
+                  Редактировать
+                </Link>
+
+                <button
+                  onClick={() => deleteVolunteer(v.id)}
+                  className="px-4 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-medium transition"
+                >
+                  Удалить
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </div>

@@ -48,33 +48,108 @@ export default function NewProjectPage() {
 
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-6">
-        Создание проекта
-      </h1>
+    <main className="container-ui">
+      <div className="max-w-3xl mx-auto">
+        <div className="card">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2">
+              Создание проекта
+            </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-        <input type="text" placeholder="Название" value={title} className="border p-2 w-full" required
-          onChange={(e) =>
-            setTitle(e.target.value)} />
+            <p className="text-slate-400">
+              Заполните информацию о новом волонтёрском проекте
+            </p>
+          </div>
 
-        <textarea placeholder="Описание" value={description} className="border p-2 w-full" required
-          onChange={(e) =>
-            setDescription(
-              e.target.value)} />
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
+            <div>
+              <label className="block mb-2 text-sm text-slate-300">
+                Название проекта
+              </label>
 
-        <input type="text" placeholder="Город" value={location} className="border p-2 w-full" required
-          onChange={(e) =>
-            setLocation(e.target.value)} />
+              <input
+                type="text"
+                placeholder="Например: Чистый город"
+                value={title}
+                required
+                className="input"
+                onChange={(e) =>
+                  setTitle(e.target.value)
+                }
+              />
+            </div>
 
-        <input type="date" value={startDate} className="border p-2 w-full" required
-          onChange={(e) =>
-            setStartDate(e.target.value)} />
-        <BackButton />
-        <button type="submit" disabled={loading} className="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white px-4 py-2 rounded">
-          {"Создать"}
-        </button>
-      </form>
+            <div>
+              <label className="block mb-2 text-sm text-slate-300">
+                Описание
+              </label>
+
+              <textarea
+                placeholder="Расскажите о проекте..."
+                value={description}
+                required
+                rows={5}
+                className="input resize-none"
+                onChange={(e) =>
+                  setDescription(e.target.value)
+                }
+              />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              <div>
+                <label className="block mb-2 text-sm text-slate-300">
+                  Город
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Варшава"
+                  value={location}
+                  required
+                  className="input"
+                  onChange={(e) =>
+                    setLocation(e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm text-slate-300">
+                  Дата начала
+                </label>
+
+                <input
+                  type="date"
+                  value={startDate}
+                  required
+                  className="input"
+                  onChange={(e) =>
+                    setStartDate(e.target.value)
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn disabled:opacity-50"
+              >
+                {loading
+                  ? "Создание..."
+                  : "Создать проект"}
+              </button>
+
+              <BackButton />
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
   );
 }

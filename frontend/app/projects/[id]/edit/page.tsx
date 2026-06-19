@@ -55,44 +55,90 @@ export default function EditProject() {
 
 
     return (
+        <main className="container-ui">
+            <div className="max-w-3xl mx-auto">
+                <div className="card">
+                    <div className="mb-8">
+                        <h1 className="text-4xl font-bold mb-2">
+                            Редактирование проекта
+                        </h1>
 
-        <main className="p-8">
+                        <p className="text-slate-400">
+                            Измените данные проекта и сохраните изменения
+                        </p>
+                    </div>
 
-            <h1 className="text-2xl mb-5">
-                Редактировать проект
-            </h1>
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block mb-2 text-sm text-slate-300">
+                                Название проекта
+                            </label>
 
-            <input
-                className="border p-2 w-full mb-3"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
+                            <input
+                                className="input"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                        </div>
 
-            <textarea
-                className="border p-2 w-full mb-3"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
+                        <div>
+                            <label className="block mb-2 text-sm text-slate-300">
+                                Описание
+                            </label>
 
-            <input
-                className="border p-2 w-full mb-3"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-            />
+                            <textarea
+                                rows={5}
+                                className="input resize-none"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </div>
 
-            <input
-                className="border p-2 w-full mb-3"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-            />
+                        <div className="grid md:grid-cols-2 gap-5">
+                            <div>
+                                <label className="block mb-2 text-sm text-slate-300">
+                                    Город
+                                </label>
 
-            <button
-                onClick={save}
-                className="bg-blue-600 px-4 py-2 rounded text-white"
-            >
-                Сохранить
-            </button>
+                                <input
+                                    className="input"
+                                    value={location}
+                                    onChange={(e) => setLocation(e.target.value)}
+                                />
+                            </div>
 
+                            <div>
+                                <label className="block mb-2 text-sm text-slate-300">
+                                    Дата начала
+                                </label>
+
+                                <input
+                                    type="date"
+                                    className="input"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 pt-4">
+                            <button
+                                onClick={save}
+                                className="btn"
+                            >
+                                Сохранить изменения
+                            </button>
+
+                            <button
+                                onClick={() => router.back()}
+                                className="secondary-btn"
+                            >
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     );
 }

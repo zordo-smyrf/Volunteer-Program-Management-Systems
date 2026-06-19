@@ -67,46 +67,125 @@ export default function NewVolunteerPage() {
 
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-6">
-        Создание волонтeра
-      </h1>
-      {error && (
-        <div className="mb-4 rounded bg-red-500/20 border border-red-500 p-3 text-red-400">
-          {error}
+    <main className="container-ui">
+      <div className="max-w-3xl mx-auto">
+        <div className="card">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2">
+              Создание волонтёра
+            </h1>
+
+            <p className="text-slate-400">
+              Добавьте нового участника в систему
+            </p>
+          </div>
+
+          {error && (
+            <div className="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-300">
+              {error}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
+            <div>
+              <label className="block mb-2 text-sm text-slate-300">
+                ФИО
+              </label>
+
+              <input
+                className="input"
+                placeholder="Иван Иванов"
+                value={fullName}
+                required
+                onChange={(e) =>
+                  setFullName(e.target.value)
+                }
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-slate-300">
+                Email
+              </label>
+
+              <input
+                className="input"
+                type="email"
+                placeholder="mail@example.com"
+                value={email}
+                required
+                onChange={(e) =>
+                  setEmail(e.target.value)
+                }
+              />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              <div>
+                <label className="block mb-2 text-sm text-slate-300">
+                  Возраст
+                </label>
+
+                <input
+                  className="input"
+                  type="number"
+                  placeholder="25"
+                  value={age}
+                  required
+                  onChange={(e) =>
+                    setAge(e.target.value)
+                  }
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm text-slate-300">
+                  Проект
+                </label>
+
+                <select
+                  className="input cursor-pointer"
+                  value={projectId}
+                  required
+                  onChange={(e) =>
+                    setProjectId(e.target.value)
+                  }
+                >
+                  <option value="">
+                    Выберите проект
+                  </option>
+
+                  {projects.map((p) => (
+                    <option
+                      key={p.id}
+                      value={p.id}
+                    >
+                      {p.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn disabled:opacity-50"
+              >
+                {loading
+                  ? "Создание..."
+                  : "Создать волонтёра"}
+              </button>
+
+              <BackButton />
+            </div>
+          </form>
         </div>
-      )}
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 max-w-md">
-
-        <input
-          className="border p-2 w-full" placeholder="ФИО" value={fullName} required
-          onChange={(e) => setFullName(e.target.value)} />
-
-        <input
-          className="border p-2 w-full" placeholder="Email" value={email} required
-          onChange={(e) => setEmail(e.target.value)} />
-
-        <input
-          className="border p-2 w-full" type="number" placeholder="Возраст" value={age} required
-          onChange={(e) => setAge(e.target.value)} />
-
-        <select
-          className="w-full border border-gray-600 bg-zinc-900 text-white p-3" value={projectId} required
-          onChange={(e) => setProjectId(e.target.value)}>
-
-          <option value=""> Выберите проект </option>
-          {projects.map((p) => (
-            <option key={p.id} value={p.id}> {p.title}</option>
-          ))}
-        </select>
-        <BackButton />
-        <button
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 cursor-pointer">
-          {"Создать"}
-        </button>
-      </form>
+      </div>
     </main>
   );
 }

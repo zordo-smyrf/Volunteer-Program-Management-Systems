@@ -59,45 +59,83 @@ export default function EditVolunteer() {
 
 
     return (
+        <main className="container-ui">
+            <div className="max-w-3xl mx-auto">
+                <div className="card">
+                    <div className="mb-8">
+                        <h1 className="text-4xl font-bold mb-2">
+                            Редактирование волонтёра
+                        </h1>
 
-        <main className="p-8">
+                        <p className="text-slate-400">
+                            Обновите информацию об участнике
+                        </p>
+                    </div>
 
-            <h1 className="text-2xl mb-5">
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block mb-2 text-sm text-slate-300">
+                                ФИО
+                            </label>
 
-                Редактировать волонтёра
+                            <input
+                                className="input"
+                                value={fullName}
+                                onChange={(e) =>
+                                    setFullName(e.target.value)
+                                }
+                            />
+                        </div>
 
-            </h1>
+                        <div>
+                            <label className="block mb-2 text-sm text-slate-300">
+                                Email
+                            </label>
 
-            <input
-                className="border p-2 w-full mb-3"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-            />
+                            <input
+                                type="email"
+                                className="input"
+                                value={email}
+                                onChange={(e) =>
+                                    setEmail(e.target.value)
+                                }
+                            />
+                        </div>
 
-            <input
-                className="border p-2 w-full mb-3"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
+                        <div>
+                            <label className="block mb-2 text-sm text-slate-300">
+                                Возраст
+                            </label>
 
-            <input
-                type="number"
-                className="border p-2 w-full mb-3"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
-            />
+                            <input
+                                type="number"
+                                className="input"
+                                value={age}
+                                onChange={(e) =>
+                                    setAge(Number(e.target.value))
+                                }
+                            />
+                        </div>
 
-            <button
-                onClick={save}
-                className="bg-blue-600 px-4 py-2 rounded text-white"
-            >
+                        <div className="flex gap-4 pt-4">
+                            <button
+                                onClick={save}
+                                className="btn"
+                            >
+                                Сохранить изменения
+                            </button>
 
-                Сохранить
-
-            </button>
-
+                            <button
+                                onClick={() => router.back()}
+                                className="secondary-btn"
+                            >
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
-
     );
 
 }
